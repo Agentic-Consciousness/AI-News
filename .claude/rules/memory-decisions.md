@@ -11,6 +11,7 @@ Each entry: `[YYYY-MM-DD] Decision — Rationale`
 
 <!-- Claude: add new entries at the top -->
 
+- [2026-10-22] Pin Node.js to 22.23.4 (`>=22.23.4 <23`, `.nvmrc` and `.node-version`) — Node 20 is unpatched for the 21 Oct 2026 security release; the `<23` cap keeps Vercel on 22.x instead of defaulting an open `>=22` range to 24.x. Dashboard Node.js Version must be 22.x and production must be redeployed. No Actions `setup-node` workflow exists.
 - [2026-02-27] Domain aimarketwire.ai — registered and connected to Vercel
 - [2026-02-27] Vercel Hobby plan — daily cron (0 0 * * *) for ingestion, hourly requires Pro
 - [2026-02-27] Neon free tier in ap-southeast-2 (Sydney) — low latency for Australian users
