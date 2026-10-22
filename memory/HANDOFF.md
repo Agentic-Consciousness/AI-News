@@ -6,12 +6,18 @@
 ## Last Updated
 
 - **Date:** 2026-10-22
-- **Branch:** cursor/pin-node-22-23-4-b1e8
-- **Focus:** Pin Node.js to 22.23.4 after the 21 Oct 2026 security release. Node 20 is unpatched.
+- **Branch:** cursor/deps-patch-minor-oct-2026-bac2
+- **Focus:** Patch and minor dependency updates for October 2026. Majors left in place. Node stays on 22.23.4.
 
 ## Accomplished
 
 ### This Session
+- Updated direct dependencies to the latest patch or minor already allowed by the current major. Lockfile refreshed with pnpm 10.33.4.
+- Skipped majors: `@anthropic-ai/sdk` 1.x, `@types/node` 26, `@vitejs/plugin-react` 6 (needs Vite 8), ESLint 10, TypeScript 7, Vite 8, Vitest 5.
+- Checks passed: `pnpm install`, `pnpm exec tsc --noEmit`, `pnpm lint`, `pnpm exec vitest run` (11 tests), `pnpm build` (Next.js 16.4.2).
+- Next.js 16.4.2 warns that the Edge Runtime is deprecated. The two `opengraph-image.tsx` routes still set `runtime = "edge"`. Build succeeded. No GitHub Actions workflows, so no CI run.
+
+### Previous Session
 - Pinned the runtime to Node 22.23.4 (`.nvmrc` and `.node-version`) and `package.json` `engines.node` `>=22.23.4 <23`
 - Bumped `@types/node` from `^20` to `^22` and refreshed the lockfile
 - No GitHub Actions workflow exists, so there is no `setup-node` step to pin
@@ -46,7 +52,8 @@ _None._
 
 ## Next Steps
 
-1. In Vercel (aimarketwire): Settings → Build and Deployment → Node.js Version = 22.x, then redeploy production so the patched 22.x runtime is actually used
+1. Review the October 2026 dependency PR. Next.js 16.4.2 warns that Edge Runtime is deprecated on the two OG image routes; pages still build.
+2. In Vercel (aimarketwire): Settings → Build and Deployment → Node.js Version = 22.x, then redeploy production so the patched 22.x runtime is actually used
 2. Run more ingestion batches to process remaining 117 unprocessed articles
 3. Upgrade to Vercel Pro for hourly cron (currently daily)
 4. Connect GitHub repo to Vercel for auto-deploy on push
@@ -72,6 +79,17 @@ _Beads not yet initialised._
 - LLM sometimes wraps JSON in markdown code blocks — extractJSON() handles this
 
 ## Files Modified (This Session)
+
+```
+package.json
+pnpm-lock.yaml
+memory/HANDOFF.md
+strategy/learnings.md
+.claude/rules/memory-decisions.md
+.claude/rules/memory-sessions.md
+```
+
+### Previous session files (Node pin)
 
 ```
 .nvmrc (new)

@@ -8,6 +8,7 @@
 
 <!-- Claude: add new entries at the top. Remove oldest when >20 entries. -->
 
+- [2026-10-22] Patch and minor dependency updates (pnpm). Next 16.4.2, React 19.3.1, Tailwind 4.3.3, Zod 4.6.7, Neon serverless 1.2.0, Drizzle patch bumps. Stayed inside current majors. `tsc`, lint, 11 Vitest tests, and `next build` passed. Next 16.4.2 warns the Edge Runtime is deprecated on the two OG image routes.
 - [2026-10-22] Pinned Node.js to 22.23.4 (`.nvmrc`, `.node-version`, `engines.node` `>=22.23.4 <23`, `@types/node` `^22`) for the 21 Oct 2026 security release. No GitHub Actions `setup-node` exists to pin. Vercel Node.js Version still needs to be set to 22.x and production redeployed.
 - [2026-02-27] Go live — deployed to Vercel + Neon, domain aimarketwire.ai, 11 real articles published, daily cron set up, fixed scorer SQL bug (sources import + wrong column reference), updated model to claude-sonnet-4-6, added JSON extraction for markdown-wrapped LLM responses
 - [2026-02-25] Phase 1B/1C pipeline — RSS ingestion from 7 sources, scoring pipeline, summary generation, API routes (articles feed + detail with ticker/category filters), CLI ingest command, 11 tests passing
