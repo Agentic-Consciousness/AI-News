@@ -25,7 +25,7 @@ Daniel — Printforge (printforge.com.au) — Linux / Proxmox / Docker
 
 ## Stack
 
-- **Runtime:** Node 20 (LTS)
+- **Runtime:** Node 22.23.4 (pinned; 22.x on Vercel)
 - **Framework:** Next.js 15 (App Router, TypeScript)
 - **Database:** PostgreSQL (Neon serverless)
 - **ORM:** Drizzle ORM

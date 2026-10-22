@@ -16,6 +16,18 @@
 
 <!-- Claude: add new entries at the top with incrementing ADR number -->
 
+### ADR-007: Pin Node.js 22.23.4 — 2026-10-22
+
+**Status:** Accepted
+
+**Context:** The 21 October 2026 Node.js security release fixes high-severity issues, including Brotli decoder remote code execution (CVE-2026-111497), on 22.23.4, 24.22.1, and 26.12.1. Node 20 is end-of-life for that release and receives no fix. This app had no runtime pin, so local installs, CI, and Vercel could keep running an unpatched Node 20 or an older 22.x.
+
+**Decision:** Pin local and package-manager resolution to Node `>=22.23.4 <23` via `.nvmrc` (`22.23.4`) and `package.json` `engines.node`. Keep `@types/node` on `^22`. Stay on the 22 line rather than 24: the upper bound `<23` stops Vercel from treating an open `>=22` range as its default 24.x. Vercel only offers major versions (`22.x` / `24.x`) and ships security patches on that major; the project setting must be 22.x and a new deployment is required before production picks it up.
+
+**Consequences:** Developers need Node 22.23.4 or a later 22.x. Vercel Project Settings → Build and Deployment → Node.js Version must be set to 22.x, then the production deployment must be redeployed. There is no GitHub Actions `setup-node` workflow in this repo to pin. An unbounded `engines.node` of `>=22` would deploy 24.x on Vercel.
+
+---
+
 ### ADR-006: Relevance Threshold at 40 — 2026-02-25
 
 **Status:** Accepted
