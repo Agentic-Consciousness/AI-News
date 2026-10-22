@@ -12,9 +12,9 @@
 ## Accomplished
 
 ### This Session
-- Pinned the runtime to Node 22.23.4 (`.nvmrc`) and `package.json` `engines.node` `>=22.23.4 <23`
+- Pinned the runtime to Node 22.23.4 (`.nvmrc` and `.node-version`) and `package.json` `engines.node` `>=22.23.4 <23`
 - Bumped `@types/node` from `^20` to `^22` and refreshed the lockfile
-- No GitHub Actions `setup-node` exists in the repo, so nothing to pin there
+- No GitHub Actions workflow exists, so there is no `setup-node` step to pin
 - Logged ADR-007. Production still needs the Vercel Node.js Version set to 22.x and a redeploy
 
 ### Previous Session
@@ -75,6 +75,7 @@ _Beads not yet initialised._
 
 ```
 .nvmrc (new)
+.node-version (new)
 package.json
 pnpm-lock.yaml
 CLAUDE.md
