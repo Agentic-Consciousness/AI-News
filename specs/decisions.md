@@ -16,6 +16,18 @@
 
 <!-- Claude: add new entries at the top with incrementing ADR number -->
 
+### ADR-008: GitHub-hosted runners for Verify — 2026-11-10
+
+**Status:** Accepted
+
+**Context:** `.github/workflows/verify.yml` was the only workflow. Its Verify job used `runs-on: [personal-official]` for `pull_request`, `push`, and `workflow_dispatch`, inside a `node:22-bookworm` container. The repository is public. `pull_request` runs the workflow from the merge commit, so a fork can replace `runs-on` and execute code on that self-hosted machine. The job `if` that skipped fork pull requests lived in the same file, so a rewritten workflow did not have to keep it. `permissions: contents: read` was already set. The container's floating Node 22 tag is not the pinned 22.23.4 runtime.
+
+**Decision:** Run Verify on `ubuntu-latest` for every trigger. Keep `permissions: contents: read`. Install Node from `.nvmrc` with `actions/setup-node` so the runner has 22.23.4 and Corepack; `ubuntu-latest` already has git and compilers. Remove the container, the `PERSONAL_GITHUB_CI_ENABLED` gate, and the same-repo pull request filter. No workflow in the repo targets a self-hosted runner.
+
+**Consequences:** Lint, test, and build use GitHub-hosted minutes, including on fork pull requests, with no secrets. A later pull request can still add a workflow that requests `personal-official`; that label's runner group should not accept this public repository. Vercel still needs Node.js Version 22.x in the project settings (ADR-007).
+
+---
+
 ### ADR-007: Pin Node.js 22.23.4 — 2026-10-22
 
 **Status:** Accepted
@@ -24,7 +36,7 @@
 
 **Decision:** Pin local and package-manager resolution to Node `>=22.23.4 <23` via `.nvmrc` and `.node-version` (`22.23.4`) and `package.json` `engines.node`. Keep `@types/node` on `^22`. Stay on the 22 line rather than 24: the upper bound `<23` stops Vercel from treating an open `>=22` range as its default 24.x. Vercel only offers major versions (`22.x` / `24.x`) and ships security patches on that major; the project setting must be 22.x and a new deployment is required before production picks it up.
 
-**Consequences:** Developers need Node 22.23.4 or a later 22.x. Vercel Project Settings → Build and Deployment → Node.js Version must be set to 22.x, then the production deployment must be redeployed. There is no GitHub Actions `setup-node` workflow in this repo to pin. An unbounded `engines.node` of `>=22` would deploy 24.x on Vercel.
+**Consequences:** Developers need Node 22.23.4 or a later 22.x. Vercel Project Settings → Build and Deployment → Node.js Version must be set to 22.x, then the production deployment must be redeployed. Verify now installs that pin with `actions/setup-node` and `.nvmrc` (ADR-008). An unbounded `engines.node` of `>=22` would deploy 24.x on Vercel.
 
 ---
 
