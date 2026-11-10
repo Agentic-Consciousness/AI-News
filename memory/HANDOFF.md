@@ -5,17 +5,22 @@
 
 ## Last Updated
 
-- **Date:** 2026-10-22
-- **Branch:** cursor/pin-node-22-23-4-b1e8
-- **Focus:** Pin Node.js to 22.23.4 after the 21 Oct 2026 security release. Node 20 is unpatched.
+- **Date:** 2026-11-10
+- **Branch:** cursor/github-hosted-verify-21e9
+- **Focus:** Stop pull-request CI from running on the self-hosted `personal-official` runner.
 
 ## Accomplished
 
 ### This Session
+- Moved `.github/workflows/verify.yml` to `runs-on: ubuntu-latest` for `pull_request`, `push`, and `workflow_dispatch`
+- Installed Node 22.23.4 with `actions/setup-node` and `.nvmrc` (the old `node:22-bookworm` container supplied Node and Corepack; the floating tag was not the pin)
+- Left `permissions: contents: read` in place. No other workflow targets a self-hosted runner
+- Logged ADR-008. Vercel still needs Node.js Version 22.x and a production redeploy
+
+### Previous Session
 - Pinned the runtime to Node 22.23.4 (`.nvmrc` and `.node-version`) and `package.json` `engines.node` `>=22.23.4 <23`
 - Bumped `@types/node` from `^20` to `^22` and refreshed the lockfile
-- No GitHub Actions workflow exists, so there is no `setup-node` step to pin
-- Logged ADR-007. Production still needs the Vercel Node.js Version set to 22.x and a redeploy
+- Logged ADR-007
 
 ### Previous Session
 - Built polished frontend: dark terminal editorial design with score rings, category badges, ticker badges, staggered animations
@@ -74,11 +79,7 @@ _Beads not yet initialised._
 ## Files Modified (This Session)
 
 ```
-.nvmrc (new)
-.node-version (new)
-package.json
-pnpm-lock.yaml
-CLAUDE.md
+.github/workflows/verify.yml
 specs/decisions.md
 strategy/learnings.md
 memory/HANDOFF.md
