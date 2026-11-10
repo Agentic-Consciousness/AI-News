@@ -22,7 +22,7 @@
     "version:major": "npm version major && git push && git push --tags"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.78.0",
+    "@anthropic-ai/sdk": "^1.1.0",
     "@neondatabase/serverless": "^1.0.2",
     "drizzle-orm": "^0.45.2",
     "next": "16.3.2",
